@@ -24,7 +24,7 @@ public class Genre {
     @Column(length = 15, nullable = false)
     private String genre;
 
-    public Genre(String genre, String subGenre) {
+    public Genre(String genre) {
         this.genre = genre;
     }
 

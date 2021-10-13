@@ -1,5 +1,7 @@
 package com.library.apilibrary.model.dto;
 
+import com.library.apilibrary.model.entity.Genre;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ public class BookDto {
     private String bookAuthor;
     private String bookimage;
     private String bookDesc;
-    private int genreId;
+    private Genre genreId;
 
 }
+

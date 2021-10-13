@@ -11,14 +11,21 @@ import com.library.apilibrary.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Object create(UserDto dto) {
@@ -54,7 +61,7 @@ public class UserServiceImpl implements UserService {
             
         }
 
-        User user = new User(dto.getUserName(), dto.getUserEmail(), dto.getUserPassword(), dto.getUserRole());
+        User user = new User(dto.getUserName(), dto.getUserEmail(), passwordEncoder.encode(dto.getUserPassword()), dto.getUserRole());
         userRepository.save(user);
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
@@ -118,29 +125,41 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    
     @Override
     public Object delete(Long id) {
         // TODO Auto-generated method stub
         ResponsDto<Object> response = new ResponsDto<>();
         Optional<User> checkUser = userRepository.findById(id);
-
+        
         if (checkUser.isEmpty()) {
-
+            
             response.setStatus(HttpStatus.NOT_FOUND.value());
             response.setDescription(HttpStatus.NOT_FOUND);
             response.setMessage("User not found");
             
             return response;
         }
-
+        
         User user = checkUser.get();
         user.setDeleted(true);
         userRepository.save(user);
-
+        
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("User successfully updated");
         return response;
     }
     
+    @Override
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return UserDetailsImpl.build(user);
+    }
 }

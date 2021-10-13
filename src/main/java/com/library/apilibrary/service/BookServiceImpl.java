@@ -52,6 +52,7 @@ public class BookServiceImpl implements BookService {
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
         response.setData(bookRepository.findByBookName(dto.getBookName()));
+        System.out.println("response " + response);
         return response;
     }
 

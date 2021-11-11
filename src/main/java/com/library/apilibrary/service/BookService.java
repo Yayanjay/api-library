@@ -7,6 +7,8 @@ public interface BookService {
 
     public Object read();
 
+    public Object search(BookDto dto);
+
     public Object update(BookDto dto, Long id);
 
     public Object delete(Long id);

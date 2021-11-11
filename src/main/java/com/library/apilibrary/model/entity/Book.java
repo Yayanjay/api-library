@@ -21,20 +21,23 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookId;
 
-    @Column(length = 50)
+    @Column(name = "bookName", length = 50)
     private String bookName;
     
-    @Column()
+    @Column(name = "bookAuthor", length = 25)
     private String bookAuthor;
 
-    @Column()
+    @Column(name = "bookImage")
     private String bookImage;
 
-    @Column()
+    @Column(name = "bookDesc")
     private String bookDesc;
 
+    @Column(name = "isDeleted")
+    private boolean isDeleted = false;
+
     @ManyToOne
-    @JoinColumn(name = "genreId", referencedColumnName = "genreId", insertable = false, updatable = false)
+    @JoinColumn(name = "genreId", referencedColumnName = "genreId")
     private Genre genreId;
 
     public Book(String bookName, String bookAuthor, String bookImage, String bookDesc, Genre genres) {
@@ -44,9 +47,5 @@ public class Book {
         this.bookDesc = bookDesc;
         this.genreId = genres;
     }
-
-    public Book(String bookName2, String bookAuthor2, String bookimage2, String bookDesc2, int genreId2) {
-    }
-
 
 }

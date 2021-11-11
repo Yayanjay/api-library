@@ -1,13 +1,16 @@
 package com.library.apilibrary.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import com.library.apilibrary.model.dto.BookDto;
 import com.library.apilibrary.model.dto.ResponsDto;
 import com.library.apilibrary.model.entity.Book;
+import com.library.apilibrary.model.entity.Genre;
 import com.library.apilibrary.repository.BookRepository;
+import com.library.apilibrary.repository.GenreRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ public class BookServiceImpl implements BookService {
     
     @Autowired 
     private BookRepository bookRepository;
+
+    @Autowired
+    private GenreRepository genreRepository;
 
     @Override
     public Object create(BookDto dto) {
@@ -45,21 +51,16 @@ public class BookServiceImpl implements BookService {
         }
 
 
-        Book book = new Book(dto.getBookName(), dto.getBookAuthor(), dto.getBookimage(), dto.getBookDesc(), dto.getGenreId());
+        Genre genre = genreRepository.findById(dto.getGenreId()).get();
+        
+        Book book = new Book(dto.getBookName(), dto.getBookAuthor(), dto.getBookImage(), dto.getBookDesc(), genre);
         bookRepository.save(book);
         
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setData(bookRepository.findByBookName(dto.getBookName()));
-        System.out.println("response " + response);
+        response.setResult(bookRepository.findByBookName(dto.getBookName()));
         return response;
-    }
-
-    @Override
-    public Object delete(Long id) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
@@ -67,28 +68,128 @@ public class BookServiceImpl implements BookService {
         // TODO Auto-generated method stub
         ResponsDto<Object> response = new ResponsDto<>();
         List<Book> checkBook = bookRepository.findAll();
-
+        
         if (checkBook.isEmpty()) {
-
+            
             response.setStatus(HttpStatus.NOT_FOUND.value());
             response.setDescription(HttpStatus.NOT_FOUND);
             response.setMessage("Data not found");
             
             return response;
         }
-
+        
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setData(bookRepository.findAll());
+        response.setResult(bookRepository.findAll());
+        
+        return response;
+    }
 
+    @Override
+    public Object delete(Long id) {
+        // TODO Auto-generated method stub
+        ResponsDto<Object> response = new ResponsDto<>();
+        Optional<Book> checkBook = bookRepository.findById(id);
+        
+        if (checkBook.isEmpty()) {
+            
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setDescription(HttpStatus.NOT_FOUND);
+            response.setMessage("Book not found");
+            
+            return response;
+        }
+
+        Book book = checkBook.get();
+        book.setDeleted(true);
+        bookRepository.save(book);
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setDescription(HttpStatus.OK);
+        response.setMessage("Book successfully deleted");
         return response;
     }
 
     @Override
     public Object update(BookDto dto, Long id) {
         // TODO Auto-generated method stub
-        return null;
+        ResponsDto<Object> response = new ResponsDto<>();
+        Optional<Book> checkBook = bookRepository.findById(id);
+
+        if (checkBook.isEmpty()) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setDescription(HttpStatus.NOT_FOUND);
+            response.setMessage("Book not found");
+            
+            return response;
+        }
+
+        Book book = checkBook.get();
+        if (dto.getBookName() != null) {
+            book.setBookName(dto.getBookName());;
+        }
+
+        if (dto.getBookAuthor() != null) {
+            book.setBookAuthor(dto.getBookAuthor());
+        }
+
+        if (dto.getBookImage() != null) {
+            book.setBookImage(dto.getBookImage());
+        }
+
+        if (dto.getBookDesc() != null) {
+            book.setBookDesc(dto.getBookDesc());
+        }
+
+        bookRepository.save(book);
+        response.setStatus(HttpStatus.OK.value());
+        response.setDescription(HttpStatus.OK);
+        response.setMessage("User successfully updated");
+        response.setResult(bookRepository.findById(id));
+
+        return response;
     }
+
+    @Override
+    public Object search(BookDto dto) {
+        // TODO Auto-generated method stub
+        ResponsDto<Object> response = new ResponsDto<>();
+
+        if (dto.getBookName() != null) {
+            response.setStatus(HttpStatus.OK.value());
+            response.setDescription(HttpStatus.OK);
+            response.setMessage("Book successfully loaded");
+            response.setResult(bookRepository.findByBookNameOrderByBookId(dto.getBookName()));
+        }
+
+        if (dto.getBookAuthor() != null) {
+            response.setStatus(HttpStatus.OK.value());
+            response.setDescription(HttpStatus.OK);
+            response.setMessage("Book successfully loaded");
+            response.setResult(bookRepository.findByBookAuthorContaining(dto.getBookAuthor()));
+        }
+
+        if (dto.getGenreId() != null) {
+
+            
+            Genre genre = genreRepository.findById(dto.getGenreId()).get();
+
+            response.setStatus(HttpStatus.OK.value());
+            response.setDescription(HttpStatus.OK);
+            response.setMessage("Book successfully loaded");
+            response.setResult(bookRepository.findByGenreId(genre));
+        }
+        
+        // response.setStatus(HttpStatus.OK.value());
+        // response.setDescription(HttpStatus.OK);
+        // response.setMessage("Book successfully loaded");
+        // response.setData(bookRepository.findByBookNameOrderByBookId(dto.getBookName()));
+        // response.setData(bookRepository.findByBookAuthorContaining(dto.getBookAuthor()));
+        // response.setData(bookRepository.findByGenreIdOrderByBookName(dto.getGenreId()));
+
+        return response;
+    }
+
 
 }

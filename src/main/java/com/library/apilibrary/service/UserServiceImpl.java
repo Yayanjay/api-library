@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setData(userRepository.findByUserName(dto.getUserName()));
+        response.setResult(userRepository.findByUserName(dto.getUserName()));
         
         return response;
         
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setData(userRepository.findAll());
+        response.setResult(userRepository.findAll());
 
         return response;
     }
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("User successfully updated");
-        response.setData(userRepository.findById(id));
+        response.setResult(userRepository.findById(id));
 
         return response;
     }

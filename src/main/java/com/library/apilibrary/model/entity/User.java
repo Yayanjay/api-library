@@ -32,7 +32,7 @@ public class User {
     private String userRole;
 
     @Column(nullable = false)
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 
     public User(String userName, String userEmail, String userPassword, String userRole) {
         this.userName = userName;

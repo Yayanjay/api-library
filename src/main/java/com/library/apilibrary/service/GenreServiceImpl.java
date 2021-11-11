@@ -29,7 +29,7 @@ public class GenreServiceImpl implements GenreService {
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setData(genreRepository.findAll());
+        response.setResult(genreRepository.findAll());
 
         return response;
     }
@@ -54,7 +54,7 @@ public class GenreServiceImpl implements GenreService {
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setData(genreRepository.findAll());
+        response.setResult(genreRepository.findAll());
 
         return response;
     }

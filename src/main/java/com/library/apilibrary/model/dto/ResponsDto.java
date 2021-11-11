@@ -11,5 +11,5 @@ public class ResponsDto<T> {
     private int status;
     private Object description;
     private String message;
-    private T data;
+    private T result;
 }

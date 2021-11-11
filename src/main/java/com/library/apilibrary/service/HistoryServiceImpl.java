@@ -106,5 +106,20 @@ public class HistoryServiceImpl implements HistoryService {
 
         return response;
     }
+
+    @Override
+    public Object getByUser(Long id) {
+        // TODO Auto-generated method stub
+        ResponsDto<Object> response = new ResponsDto<>();
+        
+        User user = userRepository.findById(id).get();
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setDescription(HttpStatus.OK);
+        response.setMessage("Success");
+        response.setResult(historyRepository.findByUserId(user));
+        
+        return response;
+    }
     
 }

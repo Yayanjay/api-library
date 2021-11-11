@@ -8,4 +8,6 @@ public interface HistoryService {
     public Object read();
 
     public Object update(HistoryDto dto, Long id);
+
+    public Object getByUser(Long id);
 }

@@ -147,7 +147,7 @@ public class UserController {
             response.setDescription(HttpStatus.OK);
             response.setMessage("Sign in succeed");
             // response.setResult(new JWTResponse(jwt, email, userService.getByEmail(email), roles));
-            response.setResult(new JWTResponse(jwt, email, userService.getByEmail(email).toString(), roles));
+            response.setResult(new JWTResponse(jwt, email, userService.getByEmail(email), roles));
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {

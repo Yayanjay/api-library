@@ -11,4 +11,6 @@ public interface UserService {
 
     public Object delete(Long id);
 
+    public Object getByEmail(String email);
+
 }

@@ -162,4 +162,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return UserDetailsImpl.build(user);
     }
+
+    @Override
+    public Object getByEmail(String email) {
+        // TODO Auto-generated method stub
+        ResponsDto<Object> response = new ResponsDto<>();
+        String user = userRepository.findByUserEmail(email).getUserName();
+
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setDescription(HttpStatus.OK);
+        response.setMessage("User successfully loaded");
+        response.setResult(user);
+        return response;
+    }
 }

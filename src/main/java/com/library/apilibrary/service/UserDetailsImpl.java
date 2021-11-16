@@ -20,7 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("User");
+        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getUserRole());
 
         return new UserDetailsImpl(user.getUserEmail(), user.getUserPassword(), authorities);
     }

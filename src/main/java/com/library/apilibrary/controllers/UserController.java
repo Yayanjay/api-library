@@ -137,11 +137,10 @@ public class UserController {
             UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
 
             // get role
-            // Set<String> roles = userDetailsImpl.getAuthorities().stream().map(role -> role.getAuthority()).collect(Collectors.toSet());
+            Set<String> role = userDetailsImpl.getAuthorities().stream().map(e -> e.getAuthority()).collect(Collectors.toSet());
             
             // get user email
             String email = userDetailsImpl.getUsername();
-            String role = userRepository.findByUserEmail(email).getUserRole();
 
 
             response.setStatus(HttpStatus.OK.value());

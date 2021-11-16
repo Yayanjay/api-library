@@ -108,11 +108,11 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public Object getByUser(Long id) {
+    public Object getByUser(String username) {
         // TODO Auto-generated method stub
         ResponsDto<Object> response = new ResponsDto<>();
         
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findByUserName(username);
 
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);

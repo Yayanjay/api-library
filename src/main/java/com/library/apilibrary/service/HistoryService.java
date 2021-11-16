@@ -9,5 +9,5 @@ public interface HistoryService {
 
     public Object update(HistoryDto dto, Long id);
 
-    public Object getByUser(Long id);
+    public Object getByUser(String username);
 }

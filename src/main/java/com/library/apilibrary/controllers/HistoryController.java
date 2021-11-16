@@ -57,11 +57,11 @@ public class HistoryController {
         }
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Object> getByUser(@PathVariable Long id) {
+    @PostMapping("/{username}")
+    public ResponseEntity<Object> getByUser(@PathVariable String username) {
         //TODO: process POST request
         try {
-            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(historyService.getByUser(id), HttpStatus.CREATED);
+            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(historyService.getByUser(username), HttpStatus.CREATED);
             return responseEntity;
         } catch (Exception e) {
             //TODO: handle exception

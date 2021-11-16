@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -34,7 +35,7 @@ public class BookController {
     }
     
     @PostMapping
-    public ResponseEntity<Object> addBook(@ModelAttribute BookDto dto) {
+    public ResponseEntity<Object> addBook(@RequestBody BookDto dto) {
         //TODO: process POST request
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(bookService.create(dto), HttpStatus.CREATED);
@@ -49,7 +50,7 @@ public class BookController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@ModelAttribute BookDto dto, @PathVariable Long id) {
+    public ResponseEntity<Object> updateUser(@RequestBody BookDto dto, @PathVariable Long id) {
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(bookService.update(dto, id), HttpStatus.OK);
             return responseEntity;
@@ -77,7 +78,7 @@ public class BookController {
 
 
     @PostMapping("/search")
-    public ResponseEntity<Object> search(@ModelAttribute BookDto dto) {
+    public ResponseEntity<Object> search(@RequestBody BookDto dto) {
         //TODO: process POST request
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(bookService.search(dto), HttpStatus.CREATED);

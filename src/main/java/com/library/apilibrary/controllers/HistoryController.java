@@ -8,10 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +30,7 @@ public class HistoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addBook(@ModelAttribute HistoryDto dto) {
+    public ResponseEntity<Object> addBook(@RequestBody HistoryDto dto) {
         //TODO: process POST request
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(historyService.create(dto), HttpStatus.CREATED);
@@ -45,7 +45,7 @@ public class HistoryController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@ModelAttribute HistoryDto dto, @PathVariable Long id) {
+    public ResponseEntity<Object> updateUser(@RequestBody HistoryDto dto, @PathVariable Long id) {
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(historyService.update(dto, id), HttpStatus.OK);
             return responseEntity;

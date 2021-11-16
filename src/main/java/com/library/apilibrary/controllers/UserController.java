@@ -22,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,7 +52,7 @@ public class UserController {
         return responseEntity;
     }
     @PostMapping
-    public ResponseEntity<Object> addUser(@ModelAttribute UserDto dto) {
+    public ResponseEntity<Object> addUser(@RequestBody UserDto dto) {
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(userService.create(dto), HttpStatus.CREATED);
             return responseEntity;
@@ -67,7 +66,7 @@ public class UserController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@ModelAttribute UserDto dto, @PathVariable Long id) {
+    public ResponseEntity<Object> updateUser(@RequestBody UserDto dto, @PathVariable Long id) {
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(userService.update(dto, id), HttpStatus.OK);
             return responseEntity;
@@ -93,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> signUp(@ModelAttribute UserDto dto) {
+    public ResponseEntity<Object> signUp(@RequestBody UserDto dto) {
         ResponsDto<Object> response = new ResponsDto<>();
 
         // check if user exist

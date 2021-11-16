@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 public class JWTResponse {
     private String token;
     private String email;
-    private Object username;
-    private Set<String> role;
+    private String username;
+    private String role;
     private String type = "Bearer";
 
 
-    public JWTResponse(String token, String email, Object username, Set<String> role) {
+    public JWTResponse(String token, String email, String username, String role) {
         this.token = token;
         this.email = email;
         this.username = username;

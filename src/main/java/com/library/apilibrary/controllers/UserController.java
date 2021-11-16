@@ -137,17 +137,17 @@ public class UserController {
             UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
 
             // get role
-            Set<String> roles = userDetailsImpl.getAuthorities().stream().map(role -> role.getAuthority()).collect(Collectors.toSet());
-
+            // Set<String> roles = userDetailsImpl.getAuthorities().stream().map(role -> role.getAuthority()).collect(Collectors.toSet());
+            
             // get user email
             String email = userDetailsImpl.getUsername();
+            String role = userRepository.findByUserEmail(email).getUserRole();
 
 
             response.setStatus(HttpStatus.OK.value());
             response.setDescription(HttpStatus.OK);
             response.setMessage("Sign in succeed");
-            // response.setResult(new JWTResponse(jwt, email, userService.getByEmail(email), roles));
-            response.setResult(new JWTResponse(jwt, email, userService.getByEmail(email), roles));
+            response.setResult(new JWTResponse(jwt, email, userRepository.findByUserEmail(email).getUserName(), role));
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {

@@ -40,12 +40,19 @@ public class Book {
     @JoinColumn(name = "genreId", referencedColumnName = "genreId")
     private Genre genreId;
 
-    public Book(String bookName, String bookAuthor, String bookImage, String bookDesc, Genre genres) {
+    @ManyToOne
+    @JoinColumn(name = "typeId", referencedColumnName = "typeId")
+    private Type typeId;
+
+    public Book(String bookName, String bookAuthor, String bookImage, String bookDesc, Genre genreId, Type typeId) {
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookImage = bookImage;
         this.bookDesc = bookDesc;
-        this.genreId = genres;
+        this.genreId = genreId;
+        this.typeId = typeId;
     }
+
+    
 
 }

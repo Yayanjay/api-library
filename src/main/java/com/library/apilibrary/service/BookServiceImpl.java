@@ -9,8 +9,10 @@ import com.library.apilibrary.model.dto.BookDto;
 import com.library.apilibrary.model.dto.ResponsDto;
 import com.library.apilibrary.model.entity.Book;
 import com.library.apilibrary.model.entity.Genre;
+import com.library.apilibrary.model.entity.Type;
 import com.library.apilibrary.repository.BookRepository;
 import com.library.apilibrary.repository.GenreRepository;
+import com.library.apilibrary.repository.TypeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private GenreRepository genreRepository;
+
+    @Autowired
+    private TypeRepository typeRepository;
 
     @Override
     public Object create(BookDto dto) {
@@ -52,8 +57,10 @@ public class BookServiceImpl implements BookService {
 
 
         Genre genre = genreRepository.findById(dto.getGenreId()).get();
+
+        Type type = typeRepository.findById(dto.getTypeId()).get();
         
-        Book book = new Book(dto.getBookName(), dto.getBookAuthor(), dto.getBookImage(), dto.getBookDesc(), genre);
+        Book book = new Book(dto.getBookName(), dto.getBookAuthor(), dto.getBookImage(), dto.getBookDesc(), genre, type);
         bookRepository.save(book);
         
         response.setStatus(HttpStatus.OK.value());

@@ -13,6 +13,7 @@ public class BookDto {
     private String bookImage;
     private String bookDesc;
     private Long genreId;
+    private Long typeId;
 
 }
 

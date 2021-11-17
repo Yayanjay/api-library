@@ -1,7 +1,7 @@
 package com.library.apilibrary.controllers;
 
-import com.library.apilibrary.model.dto.GenreDto;
-import com.library.apilibrary.service.GenreServiceImpl;
+import com.library.apilibrary.model.dto.TypeDto;
+import com.library.apilibrary.service.TypeServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,25 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/genre")
+@RequestMapping("/type")
 @CrossOrigin(origins = "http://localhost:8080")
-public class GenreController {
-    
+
+public class TypeController {
+
     @Autowired
-    GenreServiceImpl genreService;
+    TypeServiceImpl typeService;
 
     @GetMapping
-    public ResponseEntity<Object> getGenre() {
-        ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(genreService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Object> getType() {
+        ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(typeService.getAll(), HttpStatus.OK);
 
         return responseEntity;
     }
     
     @PostMapping
-    public ResponseEntity<Object> addGenre(@ModelAttribute GenreDto dto) {
+    public ResponseEntity<Object> addGenre(@ModelAttribute TypeDto dto) {
         //TODO: process POST request
         try {
-            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(genreService.addGenre(dto), HttpStatus.CREATED);
+            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(typeService.addType(dto), HttpStatus.CREATED);
             return responseEntity;
         } catch (Exception e) {
             //TODO: handle exception

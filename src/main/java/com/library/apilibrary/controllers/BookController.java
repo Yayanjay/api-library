@@ -35,7 +35,7 @@ public class BookController {
     }
     
     @PostMapping
-    public ResponseEntity<Object> addBook(@ModelAttribute BookDto dto) {
+    public ResponseEntity<Object> addBook(@RequestBody BookDto dto) {
         //TODO: process POST request
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(bookService.create(dto), HttpStatus.CREATED);

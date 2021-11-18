@@ -198,5 +198,28 @@ public class BookServiceImpl implements BookService {
         return response;
     }
 
+    @Override
+    public Object findByBookId(Long id) {
+        // TODO Auto-generated method stub
+        ResponsDto<Object> response = new ResponsDto<>();
+        Optional<Book> checkBook = bookRepository.findById(id);
+        
+        if (checkBook.isEmpty()) {
+            
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setDescription(HttpStatus.NOT_FOUND);
+            response.setMessage("Data not found");
+            
+            return response;
+        }
+        
+        response.setStatus(HttpStatus.OK.value());
+        response.setDescription(HttpStatus.OK);
+        response.setMessage("Success");
+        response.setResult(bookRepository.findById(id));
+        
+        return response;
+    }
+
 
 }

@@ -13,5 +13,5 @@ public interface BookService {
 
     public Object delete(Long id);
 
-    
+    public Object findByBookId(Long id);
 }

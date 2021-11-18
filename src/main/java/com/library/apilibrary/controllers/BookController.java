@@ -76,6 +76,19 @@ public class BookController {
         }
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<Object> findByBookId(@PathVariable Long id) {
+        try {
+            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(bookService.findByBookId(id), HttpStatus.OK);
+            return responseEntity;
+        } catch (Exception e) {
+            //TODO: handle exception
+            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return responseEntity;
+
+        }
+    }
+
 
     @PostMapping("/search")
     public ResponseEntity<Object> search(@RequestBody BookDto dto) {

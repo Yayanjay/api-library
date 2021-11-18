@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,7 +31,7 @@ public class Book {
     @Column(name = "bookImage")
     private String bookImage;
 
-    @Column(name = "bookDesc")
+    @Lob
     private String bookDesc;
 
     @Column(name = "isDeleted")

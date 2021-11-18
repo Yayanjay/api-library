@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,7 +35,7 @@ public class BookController {
     }
     
     @PostMapping
-    public ResponseEntity<Object> addBook(@RequestBody BookDto dto) {
+    public ResponseEntity<Object> addBook(@ModelAttribute BookDto dto) {
         //TODO: process POST request
         try {
             ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(bookService.create(dto), HttpStatus.CREATED);

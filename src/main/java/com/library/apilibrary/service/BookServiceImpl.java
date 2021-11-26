@@ -149,6 +149,19 @@ public class BookServiceImpl implements BookService {
             book.setBookDesc(dto.getBookDesc());
         }
 
+        if (dto.getGenreId() != null) {
+
+            Genre genre = genreRepository.findById(dto.getGenreId()).get();
+
+            book.setGenreId(genre);
+        }
+
+        if (dto.getTypeId() != null) {
+
+            Type type = typeRepository.findById(dto.getTypeId()).get();
+            book.setTypeId(type);
+        }
+
         bookRepository.save(book);
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);

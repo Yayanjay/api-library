@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> signUp(@RequestBody UserDto dto) {
+    public ResponseEntity<Object> signUp(@ModelAttribute UserDto dto) {
         ResponsDto<Object> response = new ResponsDto<>();
 
         // check if user exist

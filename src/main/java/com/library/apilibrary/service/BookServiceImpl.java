@@ -74,7 +74,7 @@ public class BookServiceImpl implements BookService {
     public Object read() {
         // TODO Auto-generated method stub
         ResponsDto<Object> response = new ResponsDto<>();
-        List<Book> checkBook = bookRepository.findAll();
+        List<Book> checkBook = bookRepository.findByExist();
         
         if (checkBook.isEmpty()) {
             
@@ -88,7 +88,7 @@ public class BookServiceImpl implements BookService {
         response.setStatus(HttpStatus.OK.value());
         response.setDescription(HttpStatus.OK);
         response.setMessage("Success");
-        response.setResult(bookRepository.findAll());
+        response.setResult(bookRepository.findByExist());
         
         return response;
     }

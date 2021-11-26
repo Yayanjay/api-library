@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> signUp(@ModelAttribute UserDto dto) {
+    public ResponseEntity<Object> signUp(@RequestBody UserDto dto) {
         ResponsDto<Object> response = new ResponsDto<>();
 
         // check if user exist
@@ -142,11 +142,14 @@ public class UserController {
             // get user email
             String email = userDetailsImpl.getUsername();
 
+            // get user id
+            Long id = userRepository.findByUserEmail(email).getUserId();
+
 
             response.setStatus(HttpStatus.OK.value());
             response.setDescription(HttpStatus.OK);
             response.setMessage("Sign in succeed");
-            response.setResult(new JWTResponse(jwt, email, userRepository.findByUserEmail(email).getUserName(), role));
+            response.setResult(new JWTResponse(jwt, email, id, userRepository.findByUserEmail(email).getUserName(), role));
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {

@@ -13,5 +13,6 @@ public class HistoryDto {
     private String librarian = "Zayyan";
     private Long bookId;
     private Long userId;
+    private String userName;
     private String status;
 }

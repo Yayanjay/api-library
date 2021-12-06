@@ -101,7 +101,7 @@ public class UserController {
         if (user != null) {
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             response.setDescription(HttpStatus.EXPECTATION_FAILED);
-            response.setMessage("User successfully updated");
+            response.setMessage("sign up succeed");
 
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(response);
         };

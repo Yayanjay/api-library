@@ -21,7 +21,7 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genreId;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 50, nullable = false)
     private String genre;
 
     public Genre(String genre) {
